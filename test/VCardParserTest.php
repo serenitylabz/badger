@@ -4,7 +4,7 @@ namespace Pharse\Test;
 
 use PHPUnit\Framework\TestCase;
 use Badger\VCardParser;
-use Badger\FNParser;
+use Badger\PropertyParser;
 use Badger\UntilParser;
 use Badger\Property\FN;
 use PhatCats\LinkedList\LinkedListFactory;
@@ -14,9 +14,11 @@ use PhatCats\Tuple;
 class VCardParserTest extends TestCase {
 
   protected $listFactory;
+  protected $propertyParser;
 
   public function setUp() {
     $this->listFactory = new LinkedListFactory();
+    $this->propertyParser = new PropertyParser();
   }
 
   public function testVCardParser() {
@@ -26,9 +28,8 @@ class VCardParserTest extends TestCase {
     $vcardParser->parse("");
   }
 
-  public function testFNParser() {
-    $fnParser = new FNParser();
-    $result = $fnParser->parse("FN:Mr. John Q. Public\, Esq.\r\n");
+  public function testParseFN() {
+    $result = $this->propertyParser->parse("FN:Mr. John Q. Public\, Esq.\r\n");
     $expected = $this->listFactory->pure(
       new Tuple(
         new FN("Mr. John Q. Public\, Esq."),
