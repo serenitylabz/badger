@@ -7,6 +7,8 @@ use Badger\VCardParser;
 use Badger\FNParser;
 use Badger\Property\FN;
 use PhatCats\LinkedList\LinkedListFactory;
+use PhatCats\Tuple;
+
 
 class VCardParserTest extends TestCase {
 
@@ -25,9 +27,14 @@ class VCardParserTest extends TestCase {
 
   public function testFNParser() {
     $fnParser = new FNParser();
-    $result = $fnParser->parse("FN:Mr. John Q. Public\, Esq.");
-    $expected = $this->listFactory->pure(new FN("Mr. John Q. Public\, Esq."));
+    $result = $fnParser->parse("FN:Mr. John Q. Public\, Esq.\r\n");
+    $expected = $this->listFactory->pure(
+      new Tuple(
+        new FN("Mr. John Q. Public\, Esq."),
+        "\r\n"
+      )
+    );
 
-    $this->assertEqual($expected, $result);
+    $this->assertEquals($expected, $result);
   }
 }
