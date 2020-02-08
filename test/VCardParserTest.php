@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Badger\VCardParser;
 use Badger\PropertyParser;
 use Badger\UntilParser;
-use Badger\Property\FN;
+use Badger\VCard\Property\FN;
 use PhatCats\LinkedList\LinkedListFactory;
 use PhatCats\Tuple;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Badger\Property;
+namespace Badger\VCard\Property;
 
 class FN extends Property {
 

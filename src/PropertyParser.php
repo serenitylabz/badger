@@ -2,7 +2,7 @@
 
 namespace Badger;
 
-use Badger\Property\FN;
+use Badger\VCard\Property\FN;
 use Badger\PropertyStringParser;
 use Pharse\Parser;
 use Pharse\StringParser;
