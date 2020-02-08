@@ -19,7 +19,6 @@ class PropertyStringParser extends Parser {
 
   private $listFactory;
   private $propertyName;
-  public static $nonCrlfParser;
 
   public function __construct($propertyName, $listFactory = null) {
     $this->listFactory = is_null($listFactory) ? new LinkedListFactory() :$listFactory;
@@ -33,11 +32,9 @@ class PropertyStringParser extends Parser {
     // Now, sequence the prefixParser with the clrfParser ignoring the parsed
     // prefix.
     $parser = $prefixParser->flatMap(function($ignore) {
-      return PropertyStringParser::$nonCrlfParser;
+      return NonCRLFParser::instance();
     });
 
     return $parser->parse($input);
   }
 }
-
-PropertyStringParser::$nonCrlfParser = new NonCRLFParser();

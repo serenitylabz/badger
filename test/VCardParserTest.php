@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Badger\VCardParser;
 use Badger\PropertyParser;
 use Badger\UntilParser;
+use Badger\VersionParser;
 use Badger\VCard\Property\FN;
+use Badger\VCard\Version;
 use PhatCats\LinkedList\LinkedListFactory;
 use PhatCats\Tuple;
 
@@ -33,6 +35,18 @@ class VCardParserTest extends TestCase {
     $expected = $this->listFactory->pure(
       new Tuple(
         new FN("Mr. John Q. Public\, Esq."),
+        "\r\n"
+      )
+    );
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testParseVersion() {
+    $result = (new VersionParser())->parse("VERSION:4.0\r\n");
+    $expected = $this->listFactory->pure(
+      new Tuple(
+        new Version("4.0"),
         "\r\n"
       )
     );
