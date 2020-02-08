@@ -3,7 +3,7 @@
 namespace Badger;
 
 use Badger\Property\FN;
-use Badger\UntilParser;
+use Badger\NonCRLFParser;
 use Pharse\Parser;
 use Pharse\StringParser;
 use PhatCats\LinkedList\LinkedListFactory;
@@ -19,7 +19,7 @@ class PropertyStringParser extends Parser {
 
   private $listFactory;
   private $propertyName;
-  public static $crlfParser;
+  public static $nonCrlfParser;
 
   public function __construct($propertyName, $listFactory = null) {
     $this->listFactory = is_null($listFactory) ? new LinkedListFactory() :$listFactory;
@@ -33,11 +33,11 @@ class PropertyStringParser extends Parser {
     // Now, sequence the prefixParser with the clrfParser ignoring the parsed
     // prefix.
     $parser = $prefixParser->flatMap(function($ignore) {
-      return PropertyStringParser::$crlfParser;
+      return PropertyStringParser::$nonCrlfParser;
     });
 
     return $parser->parse($input);
   }
 }
 
-PropertyStringParser::$crlfParser = new UntilParser("\r\n");
+PropertyStringParser::$nonCrlfParser = new NonCRLFParser();
