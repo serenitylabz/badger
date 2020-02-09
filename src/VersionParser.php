@@ -4,7 +4,6 @@ namespace Badger;
 
 use Badger\VCard\Version;
 use Pharse\Parser;
-use Pharse\StringParser;
 use PhatCats\LinkedList\LinkedListFactory;
 
 /**
@@ -19,9 +18,9 @@ class VersionParser extends Parser {
   }
 
   public function parse($input) {
-    $versionParser = (new StringParser("VERSION:"))->flatMap(function($ignore) {
-      return NonCRLFParser::instance();
-    })->map(function($versionStr) { return new Version($versionStr); });
+    $versionParser = (new PropertyStringParser("VERSION"))->map(function($versionStr) {
+      return new Version($versionStr);
+    });
 
     return $versionParser->parse($input);
   }

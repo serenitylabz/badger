@@ -35,7 +35,7 @@ class VCardParserTest extends TestCase {
     $expected = $this->listFactory->pure(
       new Tuple(
         new FN("Mr. John Q. Public\, Esq."),
-        "\r\n"
+        ""
       )
     );
 
@@ -47,7 +47,7 @@ class VCardParserTest extends TestCase {
     $expected = $this->listFactory->pure(
       new Tuple(
         new Version("4.0"),
-        "\r\n"
+        ""
       )
     );
 

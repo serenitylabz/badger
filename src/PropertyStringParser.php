@@ -3,6 +3,7 @@
 namespace Badger;
 
 use Badger\Property\FN;
+use Badger\CRLFParser;
 use Badger\NonCRLFParser;
 use Pharse\Parser;
 use Pharse\StringParser;
@@ -31,10 +32,23 @@ class PropertyStringParser extends Parser {
 
     // Now, sequence the prefixParser with the clrfParser ignoring the parsed
     // prefix.
-    $parser = $prefixParser->flatMap(function($ignore) {
+    $propertyStringParserSansCRLF = $prefixParser->flatMap(function($ignore) {
       return NonCRLFParser::instance();
     });
 
-    return $parser->parse($input);
+    // Finally, create a parser that parses the property string, parses the
+    // following CRLF and then returns the parsed property string together with
+    // the rest of the input.
+    return $propertyStringParserSansCRLF->parse($input)->flatMap(function($tuple) {
+      $propStr = $tuple->first();
+      $rest = $tuple->second();
+
+      $crlfParseResult = CRLFParser::$crlfParser->parse($rest);
+
+      return $crlfParseResult->map(function($tuple) use ($propStr) {
+        $rest = $tuple->second();
+        return new Tuple($propStr, $rest);
+      });
+    });
   }
 }

@@ -14,4 +14,4 @@ class CRLFParser extends Parser {
   }
 }
 
-CRLFParser::$crlfParser = new StringParser("\n\r");
+CRLFParser::$crlfParser = new StringParser("\r\n");
