@@ -3,6 +3,7 @@
 namespace Pharse\Test;
 
 use PHPUnit\Framework\TestCase;
+use Badger\VCard\VCard;
 use Badger\VCardParser;
 use Badger\PropertyParser;
 use Badger\UntilParser;
@@ -24,10 +25,21 @@ class VCardParserTest extends TestCase {
   }
 
   public function testVCardParser() {
-    $this->expectException(\Exception::class);
+    $vcardStr = "BEGIN:VCARD\r\nVERSION:4.0\r\nFN:Simon Perreault\r\nEND:VCARD\r\n";
 
     $vcardParser = new VCardParser();
-    $vcardParser->parse("");
+    $result = $vcardParser->parse($vcardStr);
+    $expected = $this->listFactory->pure(
+      new Tuple(
+        new VCard(
+          new Version("4.0"),
+          $this->listFactory->pure(new FN("Simon Perreault"))
+        ),
+        ""
+      )
+    );
+
+    $this->assertEquals($expected, $result);
   }
 
   public function testParseFN() {
