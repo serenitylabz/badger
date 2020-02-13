@@ -11,6 +11,7 @@ class NonCRLFParser extends Parser {
   private static $instance;
 
   private function __construct() {
+    parent::__construct();
     $this->nonCrlfParser = new UntilParser("\r\n");
   }
 

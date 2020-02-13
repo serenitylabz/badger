@@ -20,8 +20,8 @@
   ],
   "require": {
     "php": ">=7.0.0",
-    "serenitylabs/phatcats": "dev-master#7cb576331f4216a7beea0b6e3c9c251c08d6f211",
-    "serenitylabs/pharse": "dev-master#2a7093390d05cc441d48b1e112631bfe89647a32"
+    "serenitylabs/phatcats": "dev-master#65b8ed1b9d9f7c7f46fa18dd844c15b0bb8793b5",
+    "serenitylabs/pharse": "dev-master#81065178d0f55edcb0e2035bc96f3417c8207285"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.5",

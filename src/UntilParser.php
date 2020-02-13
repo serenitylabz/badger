@@ -16,6 +16,7 @@ class UntilParser extends Parser {
   private $listFactory;
 
   public function __construct($untilStr, $listFactory = null) {
+    parent::__construct();
     $this->untilStr = $untilStr;
     $this->listFactory = is_null($listFactory) ? new LinkedListFactory() :$listFactory;
   }

@@ -14,6 +14,7 @@ class VersionParser extends Parser {
   private $listFactory;
 
   public function __construct($listFactory = null) {
+    parent::__construct();
     $this->listFactory = is_null($listFactory) ? new LinkedListFactory() :$listFactory;
   }
 

@@ -22,6 +22,7 @@ class PropertyStringParser extends Parser {
   private $propertyName;
 
   public function __construct($propertyName, $listFactory = null) {
+    parent::__construct();
     $this->listFactory = is_null($listFactory) ? new LinkedListFactory() :$listFactory;
     $this->propertyName = $propertyName;
   }
